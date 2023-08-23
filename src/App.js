@@ -23,7 +23,7 @@ function reducer(state, {type , payload}){
       if(payload.digit === '0' && state.currentOperand === '0'){
         return state;
       }
-      if(payload.digit === '.' && state.currentOperand.includes('.')){
+      if(payload.digit === '.' && state.currentOperand === '.'){
         return state;
       }
       return{
@@ -41,7 +41,14 @@ function reducer(state, {type , payload}){
       if(state.currentOperand == null){
          return state;
       }
+      if(state.currentOperand.length === 1){
+        return{
+          ...state,
+          currentOperand: null
+        }
+      }
       return{
+        ...state,
         currentOperand: `${state.currentOperand.slice(0, state.currentOperand.length -1)}`
       }
     case ACTIONS.CHOOSE_OPERATION:
